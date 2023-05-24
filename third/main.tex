@@ -368,5 +368,36 @@ Python 3.9.5. Автоматизацию обеспечим с помощью б
 % Окончание основного документа и начало приложений Каждая последующая секция
 % документа будет являться приложением
 \appendix
+\section{Flash"=носитель с исходным кодом программ, использующихся в работе}
+{\raggedright
+\textbf{Папка} \texttt{src} содержит оригинальный исходный код программы:
+}
+
+\begin{enumerate}
+    \item[] \textbf{Папка} \texttt{naive} "--- реализация без АСД
+    \item[] \textbf{Папка} \texttt{naiveast} "--- реализация c АСД
+    \item[] \textbf{Папка} \texttt{arena} "--- реализация с АСД на основе 
+    региона
+\end{enumerate}
+
+{\raggedright
+\textbf{Папка} \texttt{extsrc} содержит измененный исходный код, необходимый для
+исследования производительности:
+}
+
+\begin{enumerate}
+    \item[] \textbf{Папка} \texttt{naive} "--- реализация без АСД
+    \item[] \textbf{Папка} \texttt{naiveast} "--- реализация c АСД
+    \item[] \textbf{Папка} \texttt{arena} "--- реализация с АСД на основе 
+    региона
+\end{enumerate}
+
+\section{Исходный код программы на Python, осуществляющей исследование
+производительности полученных реализаций}
+\inputminted{python}{requirements/src/test.py}
+
+\section{Исходный код программы на Python, осуществляющей анализ полученных 
+результатов}
+\inputminted{python}{requirements/src/graph.py}
 
 \end{document}
