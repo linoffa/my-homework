@@ -1,0 +1,79 @@
+\documentclass[a4paper, 14pt]{extarticle}
+\usepackage[T2A]{fontenc}
+\usepackage[english, russian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.7cm, right=1.2cm, top=1.2cm, bottom=1.2cm, 
+    bindingoffset=0cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{tempora}
+\usepackage{minted}
+
+\author{}
+\title{\MakeUppercase{Графы}}
+\date{}
+
+\setminted[cpp]{fontsize=\small, breaklines=true, style=friendly}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+Функция создания списка смежности графа
+\begin{minted}{cpp}
+    void create_graph(int n, int m)
+    {
+        graph.resize(n); // выделение памяти в векторе
+        int v, u;
+        for (int i = 0; i < m; ++i) // добавление рёбер в список смежности
+        { 
+            cin >> v >> u;
+            graph[v].push_back(u);
+            graph[u].push_back(v);
+        }
+
+        for (int i = 0; i < n; ++i) 
+        {
+            sort(graph[i].begin(), graph[i].end()); 
+            // сортируем списки смежных вершин для всех вершин
+            graph[i].erase(unique(graph[i].begin(), graph[i].end()), graph[i].end()); 
+            // удаляем дубликаты, если они есть
+        }
+    }
+\end{minted}
+
+Функция обхода графа в глубину
+\begin{minted}{cpp}
+    void dfs(int v)
+    {
+        used[v] = 1;
+        cout << v + 1 << ' ';
+        for (int u : g[v]) 
+            if (!used[u]) 
+                dfs(u);
+    }
+\end{minted}
+
+Функция обхода графа в ширину
+\begin{minted}{cpp}
+    void bfs(int v)
+    {
+        queue<int> s;
+        s.push(v);
+        used[v] = 1;
+        cout << v + 1 << ' ';
+        while (!s.empty())
+        {
+            int u = s.front();
+            s.pop();
+            for (int w : g[u])
+            {
+                if (used[w]) continue;
+                used[w] = 1;
+                cout << w + 1 << ' ';
+                s.push(w);
+            }
+        }
+    }
+\end{minted}
+\end{document}
