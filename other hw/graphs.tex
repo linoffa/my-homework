@@ -5,6 +5,8 @@
 \usepackage[left=0.7cm, right=1.2cm, top=1.2cm, bottom=1.2cm, 
     bindingoffset=0cm]{geometry}
 \usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{tempora}
 \usepackage{minted}
 
@@ -19,7 +21,7 @@
 \thispagestyle{empty}
 \pagestyle{empty}
 
-Функция создания списка смежности графа
+$\checkmark$ Функция создания списка смежности графа
 \begin{minted}{cpp}
     void create_graph(int n, int m)
     {
@@ -42,7 +44,7 @@
     }
 \end{minted}
 
-Функция обхода графа в глубину
+$\checkmark$ Функция обхода графа в глубину
 \begin{minted}{cpp}
     void dfs(int v)
     {
@@ -54,7 +56,7 @@
     }
 \end{minted}
 
-Функция обхода графа в ширину
+$\checkmark$ Функция обхода графа в ширину
 \begin{minted}{cpp}
     void bfs(int v)
     {
@@ -74,6 +76,55 @@
                 s.push(w);
             }
         }
+    }
+\end{minted}
+
+$\checkmark$ Функция вставки нового ребра в ориентированный граф
+\begin{minted}{cpp}
+    void insert(int a, int b)
+    { 
+        for (auto v : graph[a])
+        {
+            if (v == b) // если такое ребро уже есть в графе
+            { 
+                cout << "This edge is in the graph" << endl;
+                return;
+            }
+        }
+        graph[a].push_back(b); // добавляем новое ребро
+        sort(graph[a].begin(), graph[a].end()); // сортируем имеющиеся значения
+    }
+\end{minted}
+
+$\checkmark$ Функции для поиска циклов в графе
+\begin{minted}{cpp}
+    void add_cycles(int start, int end) // функция добавления нового цикла
+    { 
+        vector<int> temp;
+        // восстанавливаем цикл с помощью массива предков
+        for (int cur = end; cur != start; cur = pr[cur])
+            temp.push_back(cur);
+        temp.push_back(start);
+        reverse(temp.begin(), temp.end()); // переворачиваем вектор
+        cycles.push_back(temp); 
+        sort(temp.begin(), temp.end()); // сортируем все вершины цикла
+        sorted_cycles.insert(temp); // добавляем в множество
+    }
+
+    void find_cycle(int v, int parent = -1) // обход
+    { 
+        used[v] = 1; // отмечаем вершину посещенной
+        pr[v] = parent; // обозначаем вершину предком
+        for (int u : graph[v]) 
+        {
+            if (pr[v] == u) // если текущая вершина является предком, то пропускаем
+                continue; 
+            if (!used[u]) // если не посещали эту вершину, то продолжаем обход
+                find_cycle(u, v);  
+            else // добавляем цикл
+                add_cycles(u, v); 
+        }
+        used[v] = 0;
     }
 \end{minted}
 \end{document}
