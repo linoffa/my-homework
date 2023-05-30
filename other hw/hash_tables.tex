@@ -1,0 +1,25 @@
+\documentclass[a4paper, 14pt]{extarticle}
+\usepackage[T2A]{fontenc}
+\usepackage[english, russian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[left=0.7cm, right=1.2cm, top=1.2cm, bottom=1.2cm, 
+    bindingoffset=0cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tempora}
+\usepackage{minted}
+
+\author{}
+\title{\MakeUppercase{Has tables}}
+\date{}
+
+\setminted[cpp]{fontsize=\small, breaklines=true, style=perldoc}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+Задача на открытое хэширование с методом деления
+\inputminted{cpp}{task1.cpp}
+\end{document}
