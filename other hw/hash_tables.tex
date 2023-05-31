@@ -11,7 +11,7 @@
 \usepackage{minted}
 
 \author{}
-\title{\MakeUppercase{Has tables}}
+\title{\MakeUppercase{Hash tables}}
 \date{}
 
 \setminted[cpp]{fontsize=\small, breaklines=true, style=perldoc}
@@ -20,6 +20,52 @@
 \maketitle
 \thispagestyle{empty}
 \pagestyle{empty}
-Задача на открытое хэширование с методом деления
-\inputminted{cpp}{task1.cpp}
+\section*{Открытое хеширование}
+$\checkmark$ Функция создания хеш-таблицы
+\begin{minted}{cpp}
+    hashing_table *create(vector<people> x, int size) // создание хеш-таблицы
+    {
+        hashing_table *table = new hashing_table[size]; // создаем новый элемент
+        int num = 0;
+        for (int i = 0; i < 25; i++)
+        {
+            num = hash_function(x[i].experience, size); 
+            push(table[num].h, table[num].t, x[i]); 
+            // добавляем в ячейку в зависимости от значения хеш-функции
+        }
+        return table;
+    }
+\end{minted}
+$\checkmark$ Функция удаления эл-та таблицы
+\begin{minted}{cpp}
+    void del(int m, hashing_table *&table, int size) 
+    { 
+        int num = hash_function(m, size); // вычисляем значение хеш-функции
+        list *p = table[num].h;
+        while(p)
+        {
+            if (p->inf.experience == m) // если нашли эл-т 
+            {
+                del_node(table[num].h, table[num].t, p); // удаляем
+                return;
+            }
+            p = p->next; // иначе ищем дальше
+        }
+    }
+\end{minted}
+$\checkmark$ Функция поиска эл-та таблицы
+\begin{minted}{cpp}
+    list *find(int m, hashing_table *&table, int size)
+    {
+        int num = hash_function(m, size); // вычисляем значение хеш-функции
+        list *p = table[num].h;
+        while(p)
+        {
+            if (p->inf.experience == m) // если нашли эл-т 
+                return p; // возвращаем указатель
+            p = p->next; // идём дальше
+        }
+        return NULL;
+    }
+\end{minted}
 \end{document}
